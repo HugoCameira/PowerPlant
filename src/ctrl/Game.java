@@ -101,7 +101,7 @@ public class Game {
             in = new Scanner(new FileInputStream(LEVELS_FILE)); // Scanner to read the file
             model = new Loader(in).load(n);                     // Load level from scanner
             model.setListener( listener );                      // Set the listener of modifications
-            view = new TilePanel(model.getHeight(),model.getWidth(),CellTile.SIDE);
+            view = new TilePanel(model.getHeight(),model.getWidth(),CellTile.CELL_HEIGHT);
             win.clear();
             view.center(WIN_HEIGHT,WIN_WIDTH);
             status.setLevel(n);
