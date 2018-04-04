@@ -3,12 +3,10 @@ package model;
 
 public abstract class Cell {
     protected static Plant model;
-
-    //TODO:
+    public char type;
     public boolean[] mDirecions = new boolean[4];
     public char mCenter;
     public boolean mPower;
-
     public Position positionUp = new Position(0, 1);
     public Position positionRight = new Position(1, 2);
     public Position positionDown = new Position(2, 1);
@@ -21,6 +19,10 @@ public abstract class Cell {
         mDirecions[2] = false; //down
         mDirecions[3] = false; //left
         boolean mPower = false;
+    }
+
+    public char getType() {
+        return type;
     }
 
     public void turnPowerOn(){

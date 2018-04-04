@@ -9,6 +9,7 @@ public class Source extends Cell {
 
     public Source() {
         super();
+        type = 'P';
         mDirecions[0] = true; //up
         mDirecions[1] = false; //right
         mDirecions[2] = false; //down

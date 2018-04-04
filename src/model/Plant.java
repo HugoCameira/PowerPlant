@@ -15,6 +15,8 @@ public class Plant {
 
     public Plant(int height, int width){
     mBoard = new Cell[height][width];
+    mNumColumns = width;
+    mNumLines = height;
     }
 
     public int getMoves() {
