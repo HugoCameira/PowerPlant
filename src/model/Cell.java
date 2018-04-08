@@ -13,7 +13,7 @@ public abstract class Cell {
         mDirecions[1] = false; //right
         mDirecions[2] = false; //down
         mDirecions[3] = false; //left
-        boolean mPower = false;
+        mPower = false;
     }
 
     public char getType() {
@@ -32,12 +32,12 @@ public abstract class Cell {
         int position = mDirecions.length-1;
         boolean last = mDirecions[position];
         boolean temp = mDirecions[0];
-        boolean temp1;
+        boolean aux;
 
         for (int i = 0; i < position; i++) {
-            temp1 = mDirecions[i + 1];
+            aux = mDirecions[i + 1];
             mDirecions[i + 1] = temp;
-            temp =temp1;
+            temp =aux;
         }
         mDirecions[0] = last;
     }

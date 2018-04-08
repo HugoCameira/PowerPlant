@@ -4,6 +4,7 @@ import exception.BadInputException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
 
 public class Plant {
     private Cell[][] mBoard;
@@ -39,6 +40,18 @@ public class Plant {
     }
 
     public void init() {
+        Random r = new Random();
+        int low = 0;
+        int high = 3;
+        int result;
+        for (int l = 0; l < getHeight(); l++) {
+            for (int c = 0; c < getWidth(); c++) {
+                result = r.nextInt(high - low) - low;
+                for (int x = 0; x <= result; x++) {
+                    rotate(l, c);
+                }
+            }
+        }
         refreshPower();
     }
 
