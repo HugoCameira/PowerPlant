@@ -3,7 +3,7 @@
 *.ipr
 *.iws
 .idea/
-out/
+out/*
 
 #Gradle
 .gradletasknamecache

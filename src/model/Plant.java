@@ -24,11 +24,14 @@ public class Plant {
     }
 
     public boolean touch(int line, int col) {
-        rotate(line, col);
-        refreshPower();
-        refreshBoard();
-        moves++;
-        return true;
+        if (getCell(line, col) != null) {
+            rotate(line, col);
+            refreshPower();
+            refreshBoard();
+            moves++;
+            return true;
+        }
+        return false;
     }
 
     private void refreshBoard() {

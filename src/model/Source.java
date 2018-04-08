@@ -1,10 +1,5 @@
 package model;
 
-import isel.leic.pg.Console;
-
-//import static pt.isel.poo.powermap.PowerMapView.CELL_HEIGHT;
-//import static pt.isel.poo.powermap.PowerMapView.CELL_WIDTH;
-
 public class Source extends Cell {
 
     public Source() {
@@ -19,8 +14,7 @@ public class Source extends Cell {
     }
 
     @Override
-    public void turnPowerOff(){
+    public void turnPowerOff() {
         // Since it's a source the power is always on
     }
-
 }
