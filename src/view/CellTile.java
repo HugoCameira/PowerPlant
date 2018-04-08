@@ -19,70 +19,30 @@ public abstract class CellTile extends Tile {
 
     @Override
     public void paint() {
+        clear();
         if (cell.mDirecions[0]) {
             backGroundChange(cell);
-            //Console.cursor(line * CELL_HEIGHT + cell.positionUp.line, col * CELL_WIDTH + cell.positionUp.col);
             print(0, SIDE / 2, '|');
-
-            //Console.print('|');
-        } else {
-            //Console.cursor(line * CELL_HEIGHT + cell.positionUp.line, col * CELL_WIDTH + cell.positionUp.col);
-            Console.setBackground(Console.BLACK);
-            print(0, SIDE / 2, ' ');
-            //Console.print(' ');
         }
         if (cell.mDirecions[1]) {
-            //Console.cursor(line * CELL_HEIGHT + cell.positionRight.line, col * CELL_WIDTH + cell.positionRight.col);
             backGroundChange(cell);
-            print(SIDE / 2, SIDE-1, '-');
-            //Console.print('-');
-        } else {
-            // Console.cursor(line * CELL_HEIGHT + cell.positionRight.line, col * CELL_WIDTH + cell.positionRight.col);
-            Console.setBackground(Console.BLACK);
-            print(SIDE / 2, SIDE-1, ' ');
-            // Console.print(' ');
+            print(SIDE / 2, SIDE - 1, '-');
         }
         if (cell.mDirecions[2]) {
-            // Console.cursor(line * CELL_HEIGHT + cell.positionDown.line, col * CELL_WIDTH + cell.positionDown.col);
             backGroundChange(cell);
-            print(SIDE-1, SIDE / 2, '|');
-            // Console.print('|');
-        } else {
-            //Console.cursor(line * CELL_HEIGHT + cell.positionDown.line, col * CELL_WIDTH + cell.positionDown.col);
-            Console.setBackground(Console.BLACK);
-            print(SIDE-1, SIDE / 2, ' ');
-            //Console.print(' ');
+            print(SIDE - 1, SIDE / 2, '|');
         }
         if (cell.mDirecions[3]) {
-            // Console.cursor(line * CELL_HEIGHT + cell.positionLeft.line, col * CELL_WIDTH + cell.positionLeft.col);
             backGroundChange(cell);
             print(SIDE / 2, 0, '-');
-            //  Console.print('-  ');
-        } else {
-            // Console.cursor(line * CELL_HEIGHT + cell.positionLeft.line, col * CELL_WIDTH + cell.positionLeft.col);
-            Console.setBackground(Console.BLACK);
-            print(SIDE / 2, 0, ' ');
-            //  Console.print(' ');
         }
         backGroundChangeCenter(cell);
-        //Console.cursor(line * CELL_HEIGHT + cell.positionCenter.line, col * CELL_WIDTH + cell.positionCenter.col);
-        //Console.print(cell.mCenter);
         print(SIDE / 2, SIDE / 2, cell.mCenter);
 
     }
 
     public void setViews(Plant model) {
         //TODO
-    }
-
-    public void repaintAll(Plant model) {
-        model.refreshPower();
-        Cell[][] newBoard = model.getBoard();
-        for (int line = 0; line < model.getHeight(); line++) {
-            for (int col = 0; col < model.getWidth(); col++) {
-                // drawCell(newBoard[line][col], line, col);
-            }
-        }
     }
 
     public void backGroundChange(Cell piece) {
@@ -110,61 +70,25 @@ public abstract class CellTile extends Tile {
                 Console.setForeground(Console.BROWN);
             }
         } else {
-            Console.setBackground(Console.BLACK);
-            Console.setForeground(Console.WHITE);
+            if (piece instanceof House) {
+                Console.setBackground(Console.RED);
+                Console.setForeground(Console.WHITE);
+            } else {
+                if (piece instanceof Empty) {
+
+                } else {
+                    Console.setBackground(Console.BLACK);
+                    Console.setForeground(Console.WHITE);
+                }
+            }
         }
 
     }
 
-    /*
-        private void drawCell(Cell piece, int line, int col) {
-
-            if (piece.mDirecions[0]) {
-                Console.cursor(line * CELL_HEIGHT + piece.positionUp.line, col * CELL_WIDTH + piece.positionUp.col);
-                backGroundChange(piece);
-                Console.print('|');
-            } else {
-                Console.cursor(line * CELL_HEIGHT + piece.positionUp.line, col * CELL_WIDTH + piece.positionUp.col);
-                Console.setBackground(Console.BLACK);
-                Console.print(' ');
-            }
-            if (piece.mDirecions[1]) {
-                Console.cursor(line * CELL_HEIGHT + piece.positionRight.line, col * CELL_WIDTH + piece.positionRight.col);
-                backGroundChange(piece);
-                Console.print('-');
-            } else {
-                Console.cursor(line * CELL_HEIGHT + piece.positionRight.line, col * CELL_WIDTH + piece.positionRight.col);
-                Console.setBackground(Console.BLACK);
-                Console.print(' ');
-            }
-            if (piece.mDirecions[2]) {
-                Console.cursor(line * CELL_HEIGHT + piece.positionDown.line, col * CELL_WIDTH + piece.positionDown.col);
-                backGroundChange(piece);
-                Console.print('|');
-            } else {
-                Console.cursor(line * CELL_HEIGHT + piece.positionDown.line, col * CELL_WIDTH + piece.positionDown.col);
-                Console.setBackground(Console.BLACK);
-                Console.print(' ');
-            }
-            if (piece.mDirecions[3]) {
-                Console.cursor(line * CELL_HEIGHT + piece.positionLeft.line, col * CELL_WIDTH + piece.positionLeft.col);
-                backGroundChange(piece);
-                Console.print('-');
-            } else {
-                Console.cursor(line * CELL_HEIGHT + piece.positionLeft.line, col * CELL_WIDTH + piece.positionLeft.col);
-                Console.setBackground(Console.BLACK);
-                Console.print(' ');
-            }
-            backGroundChangeCenter(piece);
-            Console.cursor(line * CELL_HEIGHT + piece.positionCenter.line, col * CELL_WIDTH + piece.positionCenter.col);
-            Console.print(piece.mCenter);
-
-        }
-    */
     public static Tile newInstance(Cell cell) {
         switch (cell.getType()) {
-            case '.':
-                return new BranchTile(cell);
+            case '-':
+                return new LineTile(cell);
             case 'c':
                 return new CurveTile(cell);
             case 'T':
@@ -173,9 +97,10 @@ public abstract class CellTile extends Tile {
                 return new HouseTile(cell);
             case 'P':
                 return new SourceTile(cell);
-            case ' ':
+            case '.':
                 return new EmptyTile(cell);
         }
+
         return null;
     }
 }

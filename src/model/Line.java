@@ -9,7 +9,7 @@ public class Line extends Cell{
 
     public Line() {
         super();
-        type = '.';
+        type = '-';
         mDirecions[0] = false; //up
         mDirecions[1] = true; //right
         mDirecions[2] = false; //down

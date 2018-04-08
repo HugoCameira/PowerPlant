@@ -5,6 +5,6 @@ public class Empty extends Cell {
 
     public Empty() {
         super();
-        type = ' ';
+        type = '.';
     }
 }
