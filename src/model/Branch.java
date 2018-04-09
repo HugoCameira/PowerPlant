@@ -1,10 +1,5 @@
 package model;
 
-import isel.leic.pg.Console;
-
-//import static pt.isel.poo.powermap.PowerMapView.CELL_HEIGHT;
-//import static pt.isel.poo.powermap.PowerMapView.CELL_WIDTH;
-
 public class Branch extends Cell{
 
     public Branch() {

@@ -1,22 +1,22 @@
 package model;
 
-import console.tile.TilePanel;
-import ctrl.Game;
 import exception.BadInputException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
 
 public class Plant {
     private Cell[][] mBoard;
     private int mNumLines;
     private int mNumColumns;
     private int moves;
+    private Listener listener;
 
-    public Plant(int height, int width){
-    mBoard = new Cell[height][width];
-    mNumColumns = width;
-    mNumLines = height;
+    public Plant(int height, int width) {
+        mBoard = new Cell[height][width];
+        mNumColumns = width;
+        mNumLines = height;
     }
 
     public int getMoves() {
@@ -24,12 +24,38 @@ public class Plant {
     }
 
     public boolean touch(int line, int col) {
+        if (getCell(line, col) != null) {
+            rotate(line, col);
+            refreshPower();
+            refreshBoard();
+            moves++;
+            return true;
+        }
         return false;
-        //TODO
+    }
+
+    private void refreshBoard() {
+        for (int l = 0; l < getHeight(); l++) {
+            for (int c = 0; c < getWidth(); c++) {
+                listener.cellChanged(l, c, getCell(l, c));
+            }
+        }
     }
 
     public void init() {
-        //TODO
+        Random r = new Random();
+        int low = 0;
+        int high = 3;
+        int result;
+        for (int l = 0; l < getHeight(); l++) {
+            for (int c = 0; c < getWidth(); c++) {
+                result = r.nextInt(high - low) - low;
+                for (int x = 0; x <= result; x++) {
+                    rotate(l, c);
+                }
+            }
+        }
+        refreshPower();
     }
 
     public void putCell(int l, int c, Cell cell) {
@@ -39,7 +65,10 @@ public class Plant {
     public interface Listener {
         void cellChanged(int lin, int col, Cell cell);
     }
-    //TODO:
+
+    public void setListener(Listener view) {
+        listener = view;
+    }
 
     public int getHeight() {
         return mNumLines;
@@ -53,13 +82,10 @@ public class Plant {
         return mBoard;
     }
 
-    public Cell getCell(int l, int c){
+    public Cell getCell(int l, int c) {
         return mBoard[l][c];
     }
 
-    public void setListener(Listener view) {
-        //TODO
-    }
 
     public boolean isCompleted() {
         for (int line = 0; line < mNumLines; line++) {
@@ -196,4 +222,4 @@ public class Plant {
             }
         }
     }
- }
+}
