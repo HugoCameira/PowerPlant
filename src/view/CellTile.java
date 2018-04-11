@@ -41,10 +41,6 @@ public abstract class CellTile extends Tile {
 
     }
 
-    public void setViews(Plant model) {
-        //TODO
-    }
-
     public void backGroundChange(Cell piece) {
         if (piece.mPower) {
             Console.setBackground(Console.YELLOW);
