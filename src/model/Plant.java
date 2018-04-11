@@ -1,9 +1,5 @@
 package model;
 
-import exception.BadInputException;
-
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Random;
 
 public class Plant {
@@ -76,10 +72,6 @@ public class Plant {
 
     public int getWidth() {
         return mNumColumns;
-    }
-
-    public Cell[][] getBoard() {
-        return mBoard;
     }
 
     public Cell getCell(int l, int c) {
@@ -176,50 +168,4 @@ public class Plant {
         }
     }
 
-    public void loadLevel(FileReader file) throws BadInputException, IOException {
-
-        mNumColumns = file.read() - '0';
-        if (file.read() != ' ') {
-            throw new BadInputException("RIP TXT");
-        }
-        if (file.read() != 'x') {
-            throw new BadInputException("RIP TXT");
-        }
-        if (file.read() != ' ') {
-            throw new BadInputException("RIP TXT");
-        }
-        mNumLines = file.read() - '0';
-        mBoard = new Cell[mNumLines][mNumColumns];
-
-
-        for (int line = 0; line < mNumLines; line++) {
-            file.read();
-            file.read();
-            for (int col = 0; col < mNumColumns; col++) {
-                char current = (char) file.read();
-                switch (current) {
-                    case '.':
-                        mBoard[line][col] = new Line();
-                        break;
-                    case 'c':
-                        mBoard[line][col] = new Curve();
-                        break;
-                    case 'T':
-                        mBoard[line][col] = new Branch();
-                        break;
-                    case 'H':
-                        mBoard[line][col] = new House();
-                        break;
-                    case 'P':
-                        mBoard[line][col] = new Source();
-                        break;
-                    case ' ':
-                        mBoard[line][col] = new Empty();
-                        break;
-                    default:
-                        throw new BadInputException("RIP TXTv2");
-                }
-            }
-        }
-    }
 }
